@@ -1,9 +1,9 @@
 <h1 align="center">
-    <img alt="Rust Programming Language" src="https://www.rust-lang.org/static/images/rust-logo-blk.svg" width="200px" />
+    <img alt="Rust Programming Language" src="https://www.rust-lang.org/static/images/rust-social-wide.jpg" width="600px" />
 </h1>
 
 <h1 align="center">
-  🚀 Rust Programming Language
+  🚀 Rust Programming Learning
 </h1>
 
 <p align="center">
