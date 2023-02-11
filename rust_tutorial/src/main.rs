@@ -44,7 +44,7 @@ fn main() {
     println!("5 % 4 = {}", num_3 % num_4);
     num_3 += 1;
 
-    let random_num = rand::thread_rng().gen_range(1..101);
+    let random_num: i8 = rand::thread_rng().gen_range(1..101);
     println!("Random: {}", random_num);
 
     let age: i32 =  8;
@@ -121,17 +121,45 @@ fn main() {
 
     //String 
     //&str
-    let mut str0 = String::new("immutable string");
-
-    let mut str1 = String::new();
-    str1.push(ch: 'A');
-    str1.push_str(String: " word");
+    let mut str1: String = String::new();
+    str1.push('A');
+    str1.push_str(" word");
     for word in str1.split_whitespace() {
         println!("{}", word);
     }
 
-    let str2: String = str1.replace(from: "A", "Another");
+    let str2: String = str1.replace('A', "Another");
     println!("{}", str2);
 
+    let str3: String = String::from("x r t b h k k a m c");
+    let mut v1: Vec<char> = str3.chars().collect();
+    v1.sort();
+    v1.dedup();
+    for char in v1 {
+        print!("{} ", char);
+    }
+
+    let str4: &str = "Random string";
+    let mut str5: String = str4.to_string();
+    println!("str5: {}", str5);
+
+    let byte_arr1: &[u8] = str5.as_bytes();
+    let str6: &str = &str5[0..6];
+    println!("String legth: {}", str6.len());
+
+    str5.clear();
+    println!("str5: {}", str5);
+
+    let str6: String = String::from("Just some");
+    let str7: String = String::from(" words");
+    let str8 = str6 + &str7;
+    for char in str8.bytes(){
+        println!("{}", char);
+    }
+
+    let int_u8: u8 = 5;
+    let int2_u8: u8 = 4;
+    let int3_u32: u32 = (int_u8 as u32) + (int2_u8 as u32);
+    println!("{}", int3_u32);
 
 }
