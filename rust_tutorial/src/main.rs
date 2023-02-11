@@ -7,7 +7,7 @@ use std::io::{Write, BufReader, BufRead, ErrorKind};
 use std::fs::File;
 use std::cmp::Ordering;
 
-fn main() {
+fn first_hour(){
     println!("What is your name?");
     let mut name = String::new();
     let greeting: &str = "Nice to meet you";
@@ -162,4 +162,71 @@ fn main() {
     let int3_u32: u32 = (int_u8 as u32) + (int2_u8 as u32);
     println!("{}", int3_u32);
 
+    enum Day {
+        Monday, 
+        Tuesday, 
+        Wednesday,
+        Thursday,
+        Friday, 
+        Saturday,
+        Sunday
+    }
+
+    impl Day {
+        fn is_weekend(&self) -> bool {
+            match self {
+                Day::Saturday | Day::Sunday => true,
+                _ => false
+            }
+        }
+    }
+
+    let today: Day = Day::Monday;
+    match today {
+        Day::Monday => println!("Everyone loves Monday"),
+        Day::Tuesday => println!("Donut day"),
+        Day::Wednesday => println!("Hump day"),
+        Day::Thursday => println!("Pay day"),
+        Day::Friday => println!("Almost weekend"),
+        Day::Saturday => println!("Weekend"),
+        Day::Sunday => println!("Weekend"),
+    }
+
+    println!("Is today the weekend {}?", today.is_weekend());
+
+    let vec1: Vec<i32> = Vec::new();
+    let mut vec2: Vec<i32> = vec![1,2,3];
+    vec2.push(5);
+    println!("1st: {}", vec2[0]);
+    let second: &i32 = &vec2[1];
+    match vec2.get(1){
+        Some(second) => println!("2nd: {}", second),
+        None => println!("No 2nd value"),
+    }
+
+    for i in &mut vec2 {
+        *i *= 2;
+        println!("{}", &i);
+    } 
+
+//    for i in &vec2 {
+//        println!("{}", i);
+//    }
+
+    println!("Vector length: {}", vec2.len());
+    println!("Pop: {:?}", vec2.pop());
+
 }
+
+fn get_sum(x: i32, y: i32) -> i32{
+    //x + y
+    return x + y;
+}
+
+
+fn main() {
+    //first_hour();
+    println!("{}",get_sum(3,9));
+
+}
+
