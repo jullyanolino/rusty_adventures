@@ -323,26 +323,51 @@ fn main() {
         name: String::from("Bob Smith"),
         address: String::from("555 Main Street"),
         balance: 345.89
-    }
+    };
 
     bob.address = String::from("505 Main Street");
 
-    struct Rectangle_0<T, U> {
+    struct RectangleAux<T, U> {
         lenght: T,
         height: U,
     }
 
-    let rec: Rectancle_0<i32, f64> = Rectangle {
+    let rec = RectangleAux {
         lenght: 4,  
         height: 10.5
     };
 
+    const PI: f32 = 3.1415952; 
     trait Shape {
         fn new(lenght: f32, height: f32) -> Self;
         fn area(&self) -> f32;
     }
 
     struct Rectangle {length: f32, width: f32};
-    //struct Circle {};
+    struct Circle {length: f32, width: f32};
+
+    impl Shape for Rectangle{
+        fn new(length: f32, width: f32) -> Rectangle {
+            return Rectangle{length, width};
+        }
+        fn area(&self) -> f32{
+            return self.length * self.width;
+        }
+    }
+
+    impl Shape for Circle{
+        fn new(length: f32, width: f32) -> Circle {
+            return Circle{length, width};
+        }
+        fn area(&self) -> f32{
+            return (self.length / 2.0).powf(2.0) * PI;
+        }
+    }
+
+    let rec: Rectangle = Shape::new(10.0, 10.0);
+    let circ: Circle = Shape::new(10.0, 10.0);
+
+    println!("Rectangle area: {}", rec.area());
+    println!("Circle area: {}", circ.area());
 }
 
