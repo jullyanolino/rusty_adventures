@@ -7,6 +7,9 @@ use std::io::{Write, BufReader, BufRead, ErrorKind};
 use std::fs::File;
 use std::cmp::Ordering;
 
+use std::ops::Add;
+
+//First hour
 fn first_hour(){
     println!("What is your name?");
     let mut name = String::new();
@@ -223,10 +226,66 @@ fn get_sum(x: i32, y: i32) -> i32{
     return x + y;
 }
 
+//Second hour
+fn get_two(x: i32) -> (i32, i32){
+    return (x + 1, x + 2);
+}
+
+fn sum_list(list: &[i32]) -> i32 {
+    let mut sum = 0;
+    for &val in list.iter(){
+        sum += &val;
+    }
+
+    sum
+}
+
+fn sum_list_2(list: Vec<i32>) -> i32 {
+    let mut sum: i32 = 0;
+    for val in list.iter(){
+        sum += val;
+    }
+
+    sum
+}
+
+fn get_sum_gen<T:Add<Output = T>>(x: T, y: T) -> T {
+    return x + y;
+}
+
+fn print_str(x: String) {
+    println!("A string: {}", x);
+}
+
+fn print_return_str(x: String) -> String{
+    println!("A string: {}", x);
+    x
+}
+
+fn change_string(name: &mut String){
+    name.push_str(" is happy");
+    println!("Message: {}", name);
+}
 
 fn main() {
     //first_hour();
+
     println!("{}",get_sum(3,9));
+    let (val_1, val_2) = get_two(1);
+    println!("{}, {}", val_1, val_2);
+
+    let num_list: Vec<i32> = vec![1,2,3,4,5];
+    println!("Sum of list = {}", sum_list(&num_list));
+    println!("Sum of list = {}", sum_list_2(num_list));
+
+    println!("4 + 23 = {}", get_sum_gen(4, 23));
+    println!("4.1 + 23.7 = {}", get_sum_gen(4.1, 23.7));
+
+    let str1: String = String::from("World");
+    let str2: String = str1.clone();
+    //print_str(str1);
+    
+    let str3:String = print_return_str(str1);
 
 }
 
