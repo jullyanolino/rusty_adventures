@@ -9,6 +9,8 @@ use std::cmp::Ordering;
 
 use std::ops::Add;
 
+use std::collections::HashMap;
+
 //First hour
 fn first_hour(){
     println!("What is your name?");
@@ -286,6 +288,61 @@ fn main() {
     //print_str(str1);
     
     let str3:String = print_return_str(str1);
+    println!("str3 = {}", str3);
 
+    let mut str4: String = String::from("Lino");
+    change_string(&mut str4);
+
+
+    let mut heroes: HashMap<&str, &str> = HashMap::new();
+    heroes.insert("Superman", "Clark Kent");
+    heroes.insert("Batman", "Bruce Wayne");
+    heroes.insert("Flash", "Barry Allen");
+
+    for (k, v) in heroes.iter(){
+        println!("{} = {}", k, v);
+    }
+
+    println!("Length: {}", heroes.len());
+
+    if heroes.contains_key(&"Batman"){
+        let the_batman: Option<&&str> = heroes.get(&"Batman");
+        match the_batman {
+            Some(x) => println!("Batman is a hero"),
+            None => println!("Batman is not a hero"),
+        }
+    }
+
+    struct Customer{
+        name: String,
+        address: String,
+        balance: f32,
+    }
+
+    let mut bob: Customer = Customer{
+        name: String::from("Bob Smith"),
+        address: String::from("555 Main Street"),
+        balance: 345.89
+    }
+
+    bob.address = String::from("505 Main Street");
+
+    struct Rectangle_0<T, U> {
+        lenght: T,
+        height: U,
+    }
+
+    let rec: Rectancle_0<i32, f64> = Rectangle {
+        lenght: 4,  
+        height: 10.5
+    };
+
+    trait Shape {
+        fn new(lenght: f32, height: f32) -> Self;
+        fn area(&self) -> f32;
+    }
+
+    struct Rectangle {length: f32, width: f32};
+    //struct Circle {};
 }
 
