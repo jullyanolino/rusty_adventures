@@ -19,6 +19,11 @@ use crate::io::Error;
 use std::thread;
 use std::time::Duration;
 
+use std::rc::Rc;
+use std::cell::RefCell;
+use std::sync::{Arc, Mutex};
+use std::sync::MutexGuard;
+
 //First hour
 fn first_hour(){
     println!("What is your name?");
@@ -427,11 +432,53 @@ fn second_hour(){
     println!("1st: {:?}", iter1.next());
 }
 
-fn main() {
-    //first_hour();
-    //second_hour();
+fn threads() {
+        // ----- CONCURRENCY -----
+    // Concurrent programming envolves executing different blocks of code
+    // independently, while parallel programming is when different
+    // code executes at the same time. A thread handles scheduling
+    // and execution of these blocks of code.
 
-    //CLOSURE
+    // Common problems with parallel programming involve :
+    // 1. Thread are accessing data in the wrong order
+    // 2. Threads are blocked from executing because of confusion
+    // over requirements to proceed with execution
+
+    let thread1 = 
+        thread::spawn(|| {
+            for i in 1..25 {
+                println!("Spawned thread: {}", i);
+                thread::sleep(Duration::from_millis(1));
+            }
+        });
+
+    for c in 1..20 {
+        println!("Main thread: {}", c);
+        thread::sleep(Duration::from_millis(1));
+    }
+
+    thread1.join().unwrap();
+
+    pub struct Bank {
+        balance: f32
+    }
+
+    fn withdraw(the_bank: &mut Bank, amt: f32){
+        the_bank.balance -= amt;
+    }
+    let mut bank: Bank = Bank{ balance: 100.00 };
+    withdraw(&mut bank, 5.00);
+    println!("Balance: {}", bank.balance);
+    fn customer(the_bank: &mut Bank){
+        withdraw(the_bank, 5.00);
+    }
+    thread::spawn(move || {
+        customer(&mut bank)
+    }).join().unwrap();
+}
+
+fn third_hour() {
+        //CLOSURE
     // A closure is a function without a name and they are sometimes
     // stored in a variable (They can be used to pass a function into
     // another function)
@@ -515,40 +562,45 @@ fn main() {
         .left(TreeNode::new(2))
         .right(TreeNode::new(3));
 
-    // ----- CONCURRENCY -----
-    // Concurrent programming envolves executing different blocks of code
-    // independently, while parallel programming is when different
-    // code executes at the same time. A thread handles scheduling
-    // and execution of these blocks of code.
+    threads();
 
-    // Common problems with parallel programming involve :
-    // 1. Thread are accessing data in the wrong order
-    // 2. Threads are blocked from executing because of confusion
-    // over requirements to proceed with execution
+}
 
-    let thread1 = 
-        thread::spawn(|| {
-            for i in 1..25 {
-                println!("Spawned thread: {}", i);
-                thread::sleep(Duration::from_millis(1));
-            }
-        });
-
-    for c in 1..20 {
-        println!("Main thread: {}", c);
-        thread::sleep(Duration::from_millis(1));
-    }
-
-    thread1.join().unwrap();
+fn main() {
+    //first_hour();
+    //second_hour();
+    third_hour();
 
     pub struct Bank {
         balance: f32
     }
 
-    fn withdraw(the_bank: &mut Bank, amt: f32){
-        the_bank.balance -= amt;
+    fn withdraw(the_bank: &Arc<Mutex<Bank>>, amt: f32) {
+        let mut bank_ref:MutexGuard<Bank> = 
+            the_bank.lock(). unwrap();
+        if bank_ref.balance < 5.00 {
+            println!("Current Balance: {} Withdraw a smaller amount",
+                bank_ref.balance);
+        } else {
+            bank_ref.balance -= amt;
+            println!("Current Withdraw: {} / Current Balance: {}",
+                amt, bank_ref.balance);
+        }
     }
-    let mut bank: Bank = Bank{ balance: 100.00 };
-    withdraw(&bank, 5.00);
-    println!("Balance: {}", bank.balance);
+
+    fn customer(the_bank: &Arc<Mutex<Bank>>){
+        withdraw(&the_bank, 5.00);
+    }
+    let bank: Arc<Mutex<Bank>> = Arc::new(Mutex::new(Bank{balance: 20.00}));
+    let handles = (0..10).map(|_| {
+        let bank_ref: Arc<Mutex<Bank>> = bank.clone();
+        thread::spawn(move || {
+            customer(&bank_ref)
+        })
+    });
+    for handle in handles {
+        handle.join().unwrap();
+    }
+    println!("Total: {}", bank.lock().unwrap().balance);
+
 }
