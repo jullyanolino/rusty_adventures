@@ -11,6 +11,9 @@ use std::ops::Add;
 
 use std::collections::HashMap;
 
+mod restaurant;
+use crate::restaurant::order_food;
+
 //First hour
 fn first_hour(){
     println!("What is your name?");
@@ -369,5 +372,33 @@ fn main() {
 
     println!("Rectangle area: {}", rec.area());
     println!("Circle area: {}", circ.area());
-}
 
+    // Crates: modules that produce a library or executable
+    // Modules: organize and handle privacy
+    // Packages: Build, test and share crates
+    // Paths: A way of naming an item such as a struct, funcion
+    order_food();
+
+    //panic!("Terrible error");
+
+    let path: &str = "lines.txt";
+    let output: Result<File, Error> = File::create(path);
+    let mut output: File = match output {
+        Ok(file: File) => file,
+        Err(error: Error) => 
+            panic!("Problem creation file: {:?}", 
+                error);
+    };
+    write!(output, "Just some\nRandom words")
+        .expect(msg: "Failed to write to file");
+
+    let  input: File = 
+        File::open(path).unwrap();
+    let buffered: BufReader<File> = 
+        BufRead::new(input);
+
+    for line in buffered.lines(){
+        println!("{}", line.unwrap());
+    }
+
+}
