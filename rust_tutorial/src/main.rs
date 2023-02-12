@@ -14,6 +14,11 @@ use std::collections::HashMap;
 mod restaurant;
 use crate::restaurant::order_food;
 
+use crate::io::Error;
+
+//use core::option:Iter;
+//use core::slice:Iter;
+
 //First hour
 fn first_hour(){
     println!("What is your name?");
@@ -272,9 +277,7 @@ fn change_string(name: &mut String){
     println!("Message: {}", name);
 }
 
-fn main() {
-    //first_hour();
-
+fn second_hour(){
     println!("{}",get_sum(3,9));
     let (val_1, val_2) = get_two(1);
     println!("{}, {}", val_1, val_2);
@@ -384,21 +387,59 @@ fn main() {
     let path: &str = "lines.txt";
     let output: Result<File, Error> = File::create(path);
     let mut output: File = match output {
-        Ok(file: File) => file,
-        Err(error: Error) => 
+        Ok(file) => file,
+        Err(error) => 
             panic!("Problem creation file: {:?}", 
-                error);
+                error),
     };
-    write!(output, "Just some\nRandom words")
-        .expect(msg: "Failed to write to file");
+    write!(output, "Just some Random words")
+        .expect("Failed to write to file");
 
     let  input: File = 
         File::open(path).unwrap();
     let buffered: BufReader<File> = 
-        BufRead::new(input);
+        BufReader::new(input);
 
     for line in buffered.lines(){
         println!("{}", line.unwrap());
     }
+
+    let output2: Result<File, Error> = 
+        File::create("rand.txt");
+    let output2 = match output2{
+        Ok(file) => file,
+        Err(error) => match error.kind(){
+            ErrorKind::NotFound => 
+                match File::create ("rand.txt"){
+                    Ok(fc) => fc,
+                    Err(e) => panic!("Can't create file: {:?}", error),
+                },
+        _other_error => 
+            panic!("Problem opening file: {:?}", error),
+        },
+    };
+
+    let mut arr_it: [i32; 4] = [1,2,3,4];
+    for val in arr_it.iter(){
+        println!("{}", val);
+    }
+    let mut iter1 = arr_it.iter();
+    println!("1st: {:?}", iter1.next());
+}
+
+fn main() {
+    //first_hour();
+    //second_hour();
+
+    //CLOSURE
+    // A closure is a function without a name and they are sometimes
+    // stored in a variable (They can be used to pass a function into
+    // another function)
+    // let var_name = |parameters| -> return_type {BODY}
+    let can_vote = |age: i32| -> bool {
+        age >= 18
+    };
+
+    println!("Can vote: {}", can_vote(9));
 
 }
