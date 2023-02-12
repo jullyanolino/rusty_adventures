@@ -16,8 +16,8 @@ use crate::restaurant::order_food;
 
 use crate::io::Error;
 
-//use core::option:Iter;
-//use core::slice:Iter;
+use std::thread;
+use std::time::Duration;
 
 //First hour
 fn first_hour(){
@@ -439,7 +439,116 @@ fn main() {
     let can_vote = |age: i32| -> bool {
         age >= 18
     };
-
     println!("Can vote: {}", can_vote(9));
 
+    let mut samp1: i32 = 5;
+    let print_var = || println!("samp1 = {}", samp1);
+    print_var();
+    samp1 = 10;
+    let mut change_var = || samp1 += 1;
+    change_var();
+    println!("samp1 = {}", samp1);
+    samp1 = 10;
+    println!("samp1 = {}", samp1);
+
+    fn use_func<T>(a: i32, b: i32, func: T) -> i32
+    where T: Fn(i32, i32) -> i32 {
+        func(a, b)
+    } 
+    let sum = |a: i32, b: i32| a+b;
+    let prod = |a: i32, b: i32| a*b;
+    println!("5 + 4 = {}", use_func(5, 4, sum));
+    println!("5 * 4 = {}", use_func(5, 4, prod));
+
+    // ----- SMART POINTERS -----
+    // A pointer is an address to a location in memory. We have been
+    // using them when we used the reference operator(&) to borrow
+    // a value.
+
+    // Strings and vectors are smart pointers. They own
+    // data and also have functions for manipulating that data.
+
+    // Smart pointers provide functionality beyond referencing locations
+    // in memory. They can be used to track who has ownership of data.
+    // Ownership is very important with Rust.
+
+    // ----- BOX -----
+
+    // The Box smart pointer stores data on the heap instead of the stack.
+    // All values are stored on the stack by default
+
+    // Stack : Stores values in a last in first out format
+    // Data on the stack must have a defined fixed size
+
+    // Heap : When putting data on the heap you request a certain
+    // amount of space. The OS finds space available and returns
+    // an address for that space called a pointer.
+
+    // A Box is normally used when you have a large amount of data stored
+    // on the heap and then you pass pointers to it on the stack.
+
+    let b_int1: Box<i32> = Box::new(10);
+    println!("b_int1 = {}", b_int1);
+
+    struct TreeNode<T> {
+        pub left: Option<Box<TreeNode<T>>>,
+        pub right: Option<Box<TreeNode<T>>>,
+        pub key: T,
+    }
+
+    impl<T> TreeNode<T> {
+        pub fn new(key: T) -> Self{
+            TreeNode { left: None, right: None, key }
+        }
+        pub fn left(mut self, node: TreeNode<T>) -> Self{
+            self.left = Some(Box::new(node));
+            self
+        }
+        pub fn right(mut self, node: TreeNode<T>) -> Self{
+            self.right = Some(Box::new(node));
+            self
+        }
+
+    }
+
+    let node1: TreeNode<i32> = TreeNode::new(1)
+        .left(TreeNode::new(2))
+        .right(TreeNode::new(3));
+
+    // ----- CONCURRENCY -----
+    // Concurrent programming envolves executing different blocks of code
+    // independently, while parallel programming is when different
+    // code executes at the same time. A thread handles scheduling
+    // and execution of these blocks of code.
+
+    // Common problems with parallel programming involve :
+    // 1. Thread are accessing data in the wrong order
+    // 2. Threads are blocked from executing because of confusion
+    // over requirements to proceed with execution
+
+    let thread1 = 
+        thread::spawn(|| {
+            for i in 1..25 {
+                println!("Spawned thread: {}", i);
+                thread::sleep(Duration::from_millis(1));
+            }
+        });
+
+    for c in 1..20 {
+        println!("Main thread: {}", c);
+        thread::sleep(Duration::from_millis(1));
+    }
+
+    thread1.join().unwrap();
+
+    pub struct Bank {
+        balance: f32
+    }
+
+    fn withdraw(the_bank: &mut Bank, amt: f32){
+        the_bank.balance -= amt;
+    }
+    let mut bank: Bank = Bank{ balance: 100.00 };
+    withdraw(&bank, 5.00);
+    println!("Balance: {}", bank.balance);
 }
