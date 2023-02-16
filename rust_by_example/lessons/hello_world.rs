@@ -1,5 +1,5 @@
-mod hello_world;
-
-fn hello_world() {
-    println!("Hello World!\nI'm a Rustacean!");
+mod hello {
+    pub fn print_hello_world() {
+        println!("Hello World!\nI'm a Rustacean!");
+    }
 }

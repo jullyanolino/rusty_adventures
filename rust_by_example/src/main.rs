@@ -1,5 +1,5 @@
-use lessons::hello_world;
+use crate::lessons::hello_world;
 
-fn main() {
-    hello_world::hello_world();
+pub fn main() {
+    hello_world::print_hello_world();
 }
