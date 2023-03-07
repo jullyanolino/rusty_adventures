@@ -37,7 +37,7 @@ Homework and little code snippets written during my Rust Language learning proce
 
 ## Getting started
 To run the project, you will need to install/use the following programs
-* [Haskell Platform](https://www.haskell.org/platform/)
+* [Rust Platform](https://www.rust-lang.org/)
 * [Visual Studio Code](https://code.visualstudio.com/download)
 
 ## Structure
