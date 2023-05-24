@@ -1,0 +1,11 @@
+/home/toor/dev/rustlang/rusty_adventures/c2_rusty/target/debug/deps/parking_lot_core-fab4e4d2bb852f2d.rmeta: /home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/lib.rs /home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/parking_lot.rs /home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/spinwait.rs /home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/thread_parker/mod.rs /home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/util.rs /home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/word_lock.rs /home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/thread_parker/linux.rs
+
+/home/toor/dev/rustlang/rusty_adventures/c2_rusty/target/debug/deps/parking_lot_core-fab4e4d2bb852f2d.d: /home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/lib.rs /home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/parking_lot.rs /home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/spinwait.rs /home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/thread_parker/mod.rs /home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/util.rs /home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/word_lock.rs /home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/thread_parker/linux.rs
+
+/home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/lib.rs:
+/home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/parking_lot.rs:
+/home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/spinwait.rs:
+/home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/thread_parker/mod.rs:
+/home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/util.rs:
+/home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/word_lock.rs:
+/home/toor/.cargo/registry/src/github.com-1ecc6299db9ec823/parking_lot_core-0.9.6/src/thread_parker/linux.rs:
