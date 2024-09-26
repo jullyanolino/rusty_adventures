@@ -40,6 +40,11 @@ fn variables(){
     
 }
 
+fn variables_casting(){
+    
+}
+
 fn main(){
-    data_types();
+    //data_types();
+    //variables()
 }
